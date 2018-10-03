@@ -14,12 +14,17 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GeschwindigkeitsTable extends AbstractTableModel{
     
-    private static String [] colnames = {"Datum","Uhrzeit","Kennzeichen","Gemessen","V-Erlaubt","V-Gemessen","Übertretung"};
+    private static String [] colnames = {"Datum","Uhrzeit","Kennzeichen","V-Erlaubt","V-Gemessen","Übertretung"};
     private ArrayList<Geschwindigkeitsmessung> list = new ArrayList();
     
     public void add(Geschwindigkeitsmessung gesch){
         list.add(gesch);
         fireTableRowsInserted(0, 0);
+    }
+    
+    public void delete(int index){
+        list.remove(index);
+        fireTableRowsUpdated(index, index);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class GeschwindigkeitsTable extends AbstractTableModel{
             case 2: return gesch.getKennzeichen();
             case 3: return gesch.getVgemessen();
             case 4: return gesch.getVerlaubt();
-            case 5: return gesch.getVerlaubt() - gesch.getVgemessen();
+            case 5: return (gesch.getVerlaubt() - gesch.getVgemessen());
             default: return "???";
         }
 

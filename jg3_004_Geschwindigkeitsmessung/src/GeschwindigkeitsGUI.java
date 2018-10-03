@@ -22,6 +22,7 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
         table.setModel(model);
         
         model.add(new Geschwindigkeitsmessung("GU-FAHRER1", LocalDate.now(), LocalTime.now(), 110, 100));
+        model.add(new Geschwindigkeitsmessung("GU-RADLERMACHTSCHMIDTSCHWACH", LocalDate.now(), LocalTime.now(), 130, 80));
     }
 
     /**
@@ -35,6 +36,7 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         add = new javax.swing.JMenuItem();
+        delete = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
@@ -45,6 +47,14 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
             }
         });
         jPopupMenu1.add(add);
+
+        delete.setText("löschen");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(delete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +95,11 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
     }
     }//GEN-LAST:event_addActionPerformed
 
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    int index = table.getSelectedRow();
+    model.delete(index);
+    }//GEN-LAST:event_deleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -122,6 +137,7 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem add;
+    private javax.swing.JMenuItem delete;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
