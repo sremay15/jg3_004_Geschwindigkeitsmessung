@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /*
@@ -14,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class GeschwindigkeitsTable extends AbstractTableModel{
     
-    private static String [] colnames = {"Datum","Uhrzeit","Kennzeichen","V-Erlaubt","V-Gemessen","Übertretung"};
+    private static String [] colnames = {"Datum","Uhrzeit","Kennzeichen","V-Gemessen","V-Erlaubt","Übertretung"};
     private ArrayList<Geschwindigkeitsmessung> list = new ArrayList();
     
     public void add(Geschwindigkeitsmessung gesch){
@@ -26,6 +27,16 @@ public class GeschwindigkeitsTable extends AbstractTableModel{
         list.remove(index);
         fireTableRowsUpdated(index, index);
     }
+    
+    public void showDurchschnitt(){
+        int durch = 0;
+        int count = 0;
+        for(int i = 0; i < list.size();i++){
+            durch += list.get(i).getVgemessen();
+            count++;
+        }
+        JOptionPane.showMessageDialog(null,"Durchschnittliche Geschwindigkeit: "+(durch / count));
+    }
 
     @Override
     public int getRowCount() {
@@ -35,6 +46,11 @@ public class GeschwindigkeitsTable extends AbstractTableModel{
     @Override
     public int getColumnCount() {
         return colnames.length;
+    }
+    
+    @Override
+    public String getColumnName(int column) {
+        return colnames[column];
     }
 
     @Override
@@ -46,7 +62,7 @@ public class GeschwindigkeitsTable extends AbstractTableModel{
             case 2: return gesch.getKennzeichen();
             case 3: return gesch.getVgemessen();
             case 4: return gesch.getVerlaubt();
-            case 5: return (gesch.getVerlaubt() - gesch.getVgemessen());
+            case 5: return (gesch.getVgemessen() - gesch.getVerlaubt());
             default: return "???";
         }
 

@@ -20,6 +20,7 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
     public GeschwindigkeitsGUI() {
         initComponents();
         table.setModel(model);
+        table.setDefaultRenderer(Object.class, new GeschwindigkeitCellRenderer());
         
         model.add(new Geschwindigkeitsmessung("GU-FAHRER1", LocalDate.now(), LocalTime.now(), 110, 100));
         model.add(new Geschwindigkeitsmessung("GU-RADLERMACHTSCHMIDTSCHWACH", LocalDate.now(), LocalTime.now(), 130, 80));
@@ -37,6 +38,7 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         add = new javax.swing.JMenuItem();
         delete = new javax.swing.JMenuItem();
+        durchschnitt = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
@@ -55,6 +57,14 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
             }
         });
         jPopupMenu1.add(delete);
+
+        durchschnitt.setText("durchschnitt");
+        durchschnitt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                durchschnittActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(durchschnitt);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +110,10 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
     model.delete(index);
     }//GEN-LAST:event_deleteActionPerformed
 
+    private void durchschnittActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_durchschnittActionPerformed
+    model.showDurchschnitt();
+    }//GEN-LAST:event_durchschnittActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -138,6 +152,7 @@ private GeschwindigkeitsTable model = new GeschwindigkeitsTable();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem add;
     private javax.swing.JMenuItem delete;
+    private javax.swing.JMenuItem durchschnitt;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
